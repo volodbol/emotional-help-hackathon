@@ -33,6 +33,8 @@ public class EmotionalMap {
     @OneToOne
     private ApplicationUser applicationUser;
 
+    private String anonymousUserId;
+
     private BigDecimal angryValue;
 
     private BigDecimal joyValue;
@@ -49,30 +51,14 @@ public class EmotionalMap {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         EmotionalMap that = (EmotionalMap) o;
-
-        if (!id.equals(that.id)) return false;
-        if (!Objects.equals(applicationUser, that.applicationUser))
-            return false;
-        if (!angryValue.equals(that.angryValue)) return false;
-        if (!joyValue.equals(that.joyValue)) return false;
-        if (!surpriseValue.equals(that.surpriseValue)) return false;
-        if (!sadnessValue.equals(that.sadnessValue)) return false;
-        if (!happyValue.equals(that.happyValue)) return false;
-        return fearValue.equals(that.fearValue);
+        return id.equals(that.id) && Objects.equals(applicationUser, that.applicationUser)
+                && anonymousUserId.equals(that.anonymousUserId);
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + (applicationUser != null ? applicationUser.hashCode() : 0);
-        result = 31 * result + angryValue.hashCode();
-        result = 31 * result + joyValue.hashCode();
-        result = 31 * result + surpriseValue.hashCode();
-        result = 31 * result + sadnessValue.hashCode();
-        result = 31 * result + happyValue.hashCode();
-        result = 31 * result + fearValue.hashCode();
-        return result;
+        return Objects.hash(id, applicationUser, anonymousUserId);
     }
+
 }
