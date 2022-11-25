@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -33,32 +33,34 @@ public class EmotionalMap {
     @OneToOne
     private ApplicationUser applicationUser;
 
-    private String anonymousUserId;
+    @Column(name = "anonymous_uuid")
+    private String anonymousUUID;
 
-    private BigDecimal angryValue;
+    private Integer angryValue;
 
-    private BigDecimal joyValue;
+    private Integer joyValue;
 
-    private BigDecimal surpriseValue;
+    private Integer surpriseValue;
 
-    private BigDecimal sadnessValue;
+    private Integer sadnessValue;
 
-    private BigDecimal happyValue;
+    private Integer happyValue;
 
-    private BigDecimal fearValue;
+    private Integer fearValue;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EmotionalMap that = (EmotionalMap) o;
-        return id.equals(that.id) && Objects.equals(applicationUser, that.applicationUser)
-                && anonymousUserId.equals(that.anonymousUserId);
+        return id.equals(that.id) && angryValue.equals(that.angryValue) && joyValue.equals(that.joyValue)
+                && surpriseValue.equals(that.surpriseValue) && sadnessValue.equals(that.sadnessValue)
+                && happyValue.equals(that.happyValue) && fearValue.equals(that.fearValue);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, applicationUser, anonymousUserId);
+        return Objects.hash(id, angryValue, joyValue, surpriseValue, sadnessValue, happyValue, fearValue);
     }
 
 }

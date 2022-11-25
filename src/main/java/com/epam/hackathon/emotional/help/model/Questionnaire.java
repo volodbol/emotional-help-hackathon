@@ -15,8 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "questionnaire")
@@ -41,7 +41,7 @@ public class Questionnaire {
             inverseJoinColumns = {@JoinColumn(name = "question_id", referencedColumnName = "id")}
     )
     @ToString.Exclude
-    private Set<Question> questions;
+    private List<Question> questions;
 
 
     @Override
