@@ -10,7 +10,9 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.antMatcher("/**").anonymous().authorities("ROLE_ANONYMOUS");
+        http.formLogin().disable()
+                .csrf().disable()
+                .antMatcher("/**").authorizeRequests().anyRequest().permitAll();
         return http.build();
     }
 
