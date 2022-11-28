@@ -28,8 +28,10 @@ public class EmotionalMapController {
     }
 
     @PostMapping
-    public EmotionalMap saveEmotionalMap(@RequestBody AnswersDto answersDto) {
-        return emotionalMapService.saveEmotionalMap(answersDto);
+    public EmotionalMap saveEmotionalMap(
+            @RequestBody AnswersDto answersDto,
+            @RequestParam(name = "userId") String userId) {
+        return emotionalMapService.saveEmotionalMap(answersDto, userId);
     }
 
 }

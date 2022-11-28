@@ -9,8 +9,6 @@ import java.util.List;
 @Builder
 public class AnswersDto {
 
-    private String userId;
-
     private List<AnswerDto> answerDtos;
 
 }

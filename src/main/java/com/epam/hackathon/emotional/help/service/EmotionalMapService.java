@@ -18,17 +18,17 @@ public class EmotionalMapService {
 
     private final ApplicationUserService applicationUserService;
 
-    public EmotionalMap saveEmotionalMap(AnswersDto answersDto) {
+    public EmotionalMap saveEmotionalMap(AnswersDto answersDto, String userId) {
         EmotionalMap emotionalMap = computeEmotionalMap(answersDto);
         try {
-            Long userId = Long.parseLong(answersDto.getUserId());
-            applicationUserService.findUserById(userId)
+            Long id = Long.parseLong(userId);
+            applicationUserService.findUserById(id)
                     .ifPresentOrElse(
                             emotionalMap::setApplicationUser,
-                            () -> emotionalMap.setAnonymousUUID(answersDto.getUserId())
+                            () -> emotionalMap.setAnonymousUUID(userId)
                     );
         } catch (NumberFormatException e) {
-            emotionalMap.setAnonymousUUID(answersDto.getUserId());
+            emotionalMap.setAnonymousUUID(userId);
         }
         return emotionalMapRepository.save(emotionalMap);
     }
