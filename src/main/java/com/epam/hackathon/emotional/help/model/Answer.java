@@ -14,6 +14,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -38,6 +39,9 @@ public class Answer {
 
     @Enumerated(EnumType.ORDINAL)
     private AnswerGroup answerGroup;
+
+    @ManyToOne
+    private Question question;
 
     @Override
     public boolean equals(Object o) {

@@ -11,8 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
@@ -34,12 +32,7 @@ public class Questionnaire {
 
     private String title;
 
-    @OneToMany
-    @JoinTable(
-            name = "questionnaire_question_mapping",
-            joinColumns = {@JoinColumn(name = "questionnaire_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "question_id", referencedColumnName = "id")}
-    )
+    @OneToMany(mappedBy = "questionnaire")
     @ToString.Exclude
     private List<Question> questions;
 

@@ -12,7 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
@@ -33,13 +33,12 @@ public class Question {
 
     private String questionText;
 
-    @OneToMany
-    @JoinTable(
-            name = "question_answer_mapping",
-            joinColumns = {@JoinColumn(name = "question_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "answer_id", referencedColumnName = "id")}
-    )
+    @OneToMany(mappedBy = "question")
     @ToString.Exclude
     private List<Answer> answers;
+
+    @ManyToOne
+    @JoinColumn(name = "questionnaire_id")
+    private Questionnaire questionnaire;
 
 }
