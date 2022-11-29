@@ -7,6 +7,8 @@ import com.epam.hackathon.emotional.help.model.Questionnaire;
 import com.epam.hackathon.emotional.help.repository.AnswerRepository;
 import com.epam.hackathon.emotional.help.repository.QuestionRepository;
 import com.epam.hackathon.emotional.help.repository.QuestionnaireRepository;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,6 +17,10 @@ import org.springframework.context.annotation.Bean;
 import java.util.List;
 
 @SpringBootApplication
+@OpenAPIDefinition(info = @Info(
+        title = "Emotional Help API",
+        version = "1.0",
+        description = "Emotional Help Project Api Information"))
 public class EmotionalHelpApplication {
 
     public static void main(String[] args) {
