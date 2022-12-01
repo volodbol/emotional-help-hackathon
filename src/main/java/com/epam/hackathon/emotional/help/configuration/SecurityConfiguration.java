@@ -2,7 +2,6 @@ package com.epam.hackathon.emotional.help.configuration;
 
 import com.epam.hackathon.emotional.help.filter.UUIDAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
@@ -17,10 +16,10 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 
 
 @EnableWebSecurity
-@Configuration
 public class SecurityConfiguration extends WebSecurityConfiguration {
     private static final String PUBLIC_URLS = "/users";
     private static final RequestMatcher PROTECTED_URLS = new AntPathRequestMatcher("/questionnaires/**");
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
