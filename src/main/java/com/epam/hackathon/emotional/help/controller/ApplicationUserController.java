@@ -5,10 +5,7 @@ import com.epam.hackathon.emotional.help.exception.UsernameOrPasswordIncorrectEx
 import com.epam.hackathon.emotional.help.model.ApplicationUser;
 import com.epam.hackathon.emotional.help.service.ApplicationUserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -28,7 +25,7 @@ public class ApplicationUserController {
     }
 
     @PostMapping("sign-up")
-    public String saveApplicationUser(@RequestParam ApplicationUserDto userDto) {
+    public String saveApplicationUser(@RequestBody ApplicationUserDto userDto) {
         ApplicationUser applicationUser = applicationUserService.saveApplicationUser(userDto);
         return applicationUser.getUuid();
     }
