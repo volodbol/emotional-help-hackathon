@@ -45,7 +45,8 @@ public class SecurityConfiguration extends WebSecurityConfiguration {
         return new UUIDAuthenticationFilter(PROTECTED_URLS, authenticationManager());
     }
 
-    private AuthenticationManager authenticationManager() {
+    @Bean
+    AuthenticationManager authenticationManager() {
         return authentication -> authentication;
     }
 }
