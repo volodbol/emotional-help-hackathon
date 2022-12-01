@@ -22,8 +22,8 @@ public class UUIDAuthenticationFilter extends AbstractAuthenticationProcessingFi
     @Autowired
     private ApplicationUserService applicationUserService;
 
-    public UUIDAuthenticationFilter(RequestMatcher defaultFilterProcessesUrl) {
-        super(defaultFilterProcessesUrl);
+    public UUIDAuthenticationFilter(RequestMatcher defaultFilterProcessesUrl, AuthenticationManager authenticationManager) {
+        super(defaultFilterProcessesUrl, authenticationManager);
     }
 
     @Override
@@ -36,12 +36,6 @@ public class UUIDAuthenticationFilter extends AbstractAuthenticationProcessingFi
 
         Authentication auth = new UsernamePasswordAuthenticationToken(token, token);
         return getAuthenticationManager().authenticate(auth);
-    }
-
-    @Override
-    @Autowired
-    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
-        super.setAuthenticationManager(authenticationManager);
     }
 
     @Override

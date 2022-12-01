@@ -2,6 +2,7 @@ package com.epam.hackathon.emotional.help.configuration;
 
 import com.epam.hackathon.emotional.help.filter.UUIDAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
@@ -41,6 +42,10 @@ public class SecurityConfiguration extends WebSecurityConfiguration {
 
     @Bean
     UUIDAuthenticationFilter restAuthenticationFilter() {
-        return new UUIDAuthenticationFilter(PROTECTED_URLS);
+        return new UUIDAuthenticationFilter(PROTECTED_URLS, authenticationManager());
+    }
+
+    private AuthenticationManager authenticationManager() {
+        return authentication -> authentication;
     }
 }
