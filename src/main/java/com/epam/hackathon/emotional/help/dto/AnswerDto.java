@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AnswerDto {
 
+    private String value;
+
     private Integer mark;
 
     private AnswerGroup answerGroup;
