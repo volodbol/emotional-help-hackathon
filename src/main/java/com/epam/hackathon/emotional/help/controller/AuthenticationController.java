@@ -1,6 +1,6 @@
 package com.epam.hackathon.emotional.help.controller;
 
-import com.epam.hackathon.emotional.help.dto.ApplicationUserDto;
+import com.epam.hackathon.emotional.help.dto.ApplicationUserCreationDto;
 import com.epam.hackathon.emotional.help.exception.UsernameOrPasswordIncorrectException;
 import com.epam.hackathon.emotional.help.model.ApplicationUser;
 import com.epam.hackathon.emotional.help.service.ApplicationUserService;
@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("users")
 @RequiredArgsConstructor
-public class ApplicationUserController {
+public class AuthenticationController {
 
     private final ApplicationUserService applicationUserService;
 
@@ -25,7 +24,7 @@ public class ApplicationUserController {
     }
 
     @PostMapping("sign-up")
-    public String saveApplicationUser(@RequestBody ApplicationUserDto userDto) {
+    public String saveApplicationUser(@RequestBody ApplicationUserCreationDto userDto) {
         ApplicationUser applicationUser = applicationUserService.saveApplicationUser(userDto);
         return applicationUser.getUuid();
     }

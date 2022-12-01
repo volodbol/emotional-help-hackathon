@@ -1,6 +1,6 @@
 package com.epam.hackathon.emotional.help.service;
 
-import com.epam.hackathon.emotional.help.dto.ApplicationUserDto;
+import com.epam.hackathon.emotional.help.dto.ApplicationUserCreationDto;
 import com.epam.hackathon.emotional.help.model.ApplicationUser;
 import com.epam.hackathon.emotional.help.repository.ApplicationUserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class ApplicationUserService {
         return applicationUserRepository.findById(id);
     }
 
-    public ApplicationUser saveApplicationUser(ApplicationUserDto applicationUserDto) {
+    public ApplicationUser saveApplicationUser(ApplicationUserCreationDto applicationUserDto) {
         ApplicationUser applicationUser = new ApplicationUser();
         BeanUtils.copyProperties(applicationUserDto, applicationUser);
         applicationUser.setPassword(passwordEncoder.encode(applicationUser.getPassword()));
