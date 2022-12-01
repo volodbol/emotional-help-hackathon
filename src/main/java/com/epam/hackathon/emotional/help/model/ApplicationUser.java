@@ -1,18 +1,8 @@
 package com.epam.hackathon.emotional.help.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "application_user")
@@ -28,7 +18,7 @@ public class ApplicationUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    private String uuid;
     @Column(unique = true)
     private String username;
 
