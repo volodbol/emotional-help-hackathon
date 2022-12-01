@@ -32,51 +32,53 @@ public class EmotionalHelpApplication {
             QuestionnaireRepository questionnaireRepository,
             QuestionRepository questionRepository,
             AnswerRepository answerRepository) {
-        List<Answer> answers = answers();
-        answerRepository.saveAll(answers);
-        List<Question> questions = questions(answerRepository);
-        questionRepository.saveAll(questions);
-        return (String[] args) -> questionnaireRepository.save(
-                Questionnaire.builder()
-                        .title("Emotional map")
-                        .questions(questions)
-                        .build()
-        );
+        return (String[] args) ->  {
+            Questionnaire questionnaire = questionnaireRepository
+                    .save(Questionnaire.builder().title("Emotional map").build());
+            List<Question> questions = questions(questionnaire);
+            questionRepository.saveAll(questions);
+            List<Answer> answers = answers(questionRepository);
+            answerRepository.saveAll(answers);
+        };
     }
 
-    private static List<Question> questions(AnswerRepository answerRepository) {
+    private static List<Question> questions(Questionnaire questionnaire) {
         return List.of(
                 Question.builder()
                         .questionText("Question 1")
-                        .answers(answerRepository.findAll().subList(0, 2))
+                        .questionnaire(questionnaire)
                         .build(),
                 Question.builder()
                         .questionText("Question 2")
-                        .answers(answerRepository.findAll().subList(2, 4))
+                        .questionnaire(questionnaire)
                         .build()
         );
     }
 
-    private static List<Answer> answers() {
+    private static List<Answer> answers(QuestionRepository questionRepository) {
         return List.of(
                 Answer.builder()
                         .value("Ok")
                         .mark(3)
+                        .question(questionRepository.getReferenceById(1L))
                         .answerGroup(AnswerGroup.HAPPY)
                         .build(),
                 Answer.builder()
                         .value("Bad")
                         .mark(4)
+                        .question(questionRepository.getReferenceById(1L))
                         .answerGroup(AnswerGroup.SADNESS)
                         .build(),
                 Answer.builder()
                         .value("Fine")
                         .mark(3)
+                        .question(questionRepository.getReferenceById(2L))
                         .answerGroup(AnswerGroup.JOY)
                         .build(),
                 Answer.builder()
                         .value("No hope")
                         .mark(4)
+                        .question(questionRepository.getReferenceById(2L))
                         .answerGroup(AnswerGroup.SADNESS)
                         .build()
         );
