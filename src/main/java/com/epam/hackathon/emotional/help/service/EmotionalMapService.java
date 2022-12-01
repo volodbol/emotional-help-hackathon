@@ -65,7 +65,7 @@ public class EmotionalMapService {
     }
 
     private static Integer sumAnswersMarksOf(AnswersDto answersDto, AnswerGroup answerGroup) {
-        return answersDto.getAnswerDtos().stream()
+        return answersDto.getAnswers().stream()
                 .filter(answerDto -> answerDto.getAnswerGroup() == answerGroup)
                 .mapToInt(AnswerDto::getMark)
                 .sum();

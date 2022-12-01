@@ -13,6 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 public class AnswersDto {
 
-    private List<AnswerDto> answerDtos;
+    private List<AnswerDto> answers;
 
 }
