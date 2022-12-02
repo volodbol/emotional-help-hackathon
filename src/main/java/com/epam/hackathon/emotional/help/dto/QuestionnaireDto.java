@@ -1,21 +1,20 @@
 package com.epam.hackathon.emotional.help.dto;
 
-import com.epam.hackathon.emotional.help.model.AnswerGroup;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AnswerDto {
+public class QuestionnaireDto {
 
-    private String value;
+    private String title;
 
-    private Integer mark;
-
-    private AnswerGroup answerGroup;
+    private List<QuestionDto> questions;
 
 }
