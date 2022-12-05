@@ -1,5 +1,6 @@
 package com.epam.hackathon.emotional.help.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,15 +27,19 @@ public class ApplicationUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty
     private Long id;
 
-
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
+    @JsonProperty
     private String username;
 
+    @Column(nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(unique = true)
+    @JsonProperty
     private String email;
 
     @Override
