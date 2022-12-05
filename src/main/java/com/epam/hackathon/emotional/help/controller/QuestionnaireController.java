@@ -6,6 +6,7 @@ import com.epam.hackathon.emotional.help.model.Questionnaire;
 import com.epam.hackathon.emotional.help.service.QuestionnaireService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "questionnaires")
+@CrossOrigin
 @RequiredArgsConstructor
 public class QuestionnaireController {
 
