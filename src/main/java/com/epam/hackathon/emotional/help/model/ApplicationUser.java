@@ -28,7 +28,7 @@ public class ApplicationUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    private String uuid;
     @Column(unique = true)
     private String username;
 
