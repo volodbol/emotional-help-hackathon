@@ -1,6 +1,6 @@
 package com.epam.hackathon.emotional.help.controller;
 
-import com.epam.hackathon.emotional.help.dto.AnswersDto;
+import com.epam.hackathon.emotional.help.model.dto.AnswersDto;
 import com.epam.hackathon.emotional.help.exception.EmotionalMapNotFoundException;
 import com.epam.hackathon.emotional.help.model.EmotionalMap;
 import com.epam.hackathon.emotional.help.service.EmotionalMapService;

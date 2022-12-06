@@ -1,4 +1,4 @@
-package com.epam.hackathon.emotional.help.handler;
+package com.epam.hackathon.emotional.help.controller.handler;
 
 import com.epam.hackathon.emotional.help.exception.EmotionalMapNotFoundException;
 import org.springframework.http.HttpHeaders;

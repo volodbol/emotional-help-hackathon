@@ -1,4 +1,4 @@
-package com.epam.hackathon.emotional.help.dto;
+package com.epam.hackathon.emotional.help.model.dto;
 
 import lombok.Builder;
 import lombok.Data;

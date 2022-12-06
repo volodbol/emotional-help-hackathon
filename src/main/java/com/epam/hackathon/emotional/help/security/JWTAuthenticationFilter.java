@@ -1,7 +1,7 @@
 package com.epam.hackathon.emotional.help.security;
 
 import com.auth0.jwt.JWT;
-import com.epam.hackathon.emotional.help.model.ApplicationUser;
+import com.epam.hackathon.emotional.help.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,8 +31,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest req,
                                                 HttpServletResponse res) throws AuthenticationException {
     	try {
-    		ApplicationUser credentials = new ObjectMapper()
-                    .readValue(req.getInputStream(), ApplicationUser.class);
+    		User credentials = new ObjectMapper()
+                    .readValue(req.getInputStream(), User.class);
     		
     		return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(

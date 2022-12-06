@@ -31,7 +31,7 @@ public class EmotionalMap {
     private Long id;
 
     @OneToOne
-    private ApplicationUser applicationUser;
+    private User user;
 
     @Column(name = "anonymous_uuid")
     private String anonymousUUID;

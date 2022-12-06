@@ -1,7 +1,7 @@
 package com.epam.hackathon.emotional.help.service;
 
-import com.epam.hackathon.emotional.help.dto.AnswerDto;
-import com.epam.hackathon.emotional.help.dto.AnswersDto;
+import com.epam.hackathon.emotional.help.model.dto.AnswerDto;
+import com.epam.hackathon.emotional.help.model.dto.AnswersDto;
 import com.epam.hackathon.emotional.help.model.AnswerGroup;
 import com.epam.hackathon.emotional.help.model.EmotionalMap;
 import com.epam.hackathon.emotional.help.repository.EmotionalMapRepository;
@@ -24,7 +24,7 @@ public class EmotionalMapService {
             Long id = Long.parseLong(userId);
             applicationUserService.findUserById(id)
                     .ifPresentOrElse(
-                            emotionalMap::setApplicationUser,
+                            emotionalMap::setUser,
                             () -> emotionalMap.setAnonymousUUID(userId)
                     );
         } catch (NumberFormatException e) {
@@ -58,7 +58,7 @@ public class EmotionalMapService {
             Long userId = Long.parseLong(id);
             return applicationUserService
                     .findUserById(userId)
-                    .flatMap(emotionalMapRepository::findByApplicationUser);
+                    .flatMap(emotionalMapRepository::findByUser);
         } catch (NumberFormatException e) {
             return Optional.empty();
         }
