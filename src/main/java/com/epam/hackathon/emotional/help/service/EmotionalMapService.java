@@ -33,6 +33,14 @@ public class EmotionalMapService {
         return emotionalMapRepository.save(emotionalMap);
     }
 
+    public EmotionalMap updateEmotionalMap(EmotionalMap emotionalMap, AnswersDto answersDto) {
+        EmotionalMap computedEmotionalMap = computeEmotionalMap(answersDto);
+        computedEmotionalMap.setId(emotionalMap.getId());
+        computedEmotionalMap.setApplicationUser(emotionalMap.getApplicationUser());
+        computedEmotionalMap.setAnonymousUUID(emotionalMap.getAnonymousUUID());
+        return emotionalMapRepository.save(computedEmotionalMap);
+    }
+
     private static EmotionalMap computeEmotionalMap(AnswersDto answersDto) {
         return EmotionalMap.builder()
                 .happyValue(sumAnswersMarksOf(answersDto, AnswerGroup.HAPPY))
