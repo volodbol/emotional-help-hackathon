@@ -1,19 +1,23 @@
 package com.epam.hackathon.emotional.help.service;
 
 import com.epam.hackathon.emotional.help.dto.ApplicationUserCreationDto;
+import com.epam.hackathon.emotional.help.exception.EmailNotAvailableException;
+import com.epam.hackathon.emotional.help.exception.PasswordNotValidException;
+import com.epam.hackathon.emotional.help.exception.UsernameNotAvailableException;
 import com.epam.hackathon.emotional.help.model.ApplicationUser;
 import com.epam.hackathon.emotional.help.repository.ApplicationUserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class ApplicationUserService {
+
+    private static final int MIN_PASSWORD_LENGTH = 7;
+
     private final ApplicationUserRepository applicationUserRepository;
 
     private final PasswordEncoder passwordEncoder;
@@ -23,34 +27,47 @@ public class ApplicationUserService {
         return applicationUserRepository.findById(id);
     }
 
-    public ApplicationUser saveApplicationUser(ApplicationUserCreationDto applicationUserDto) {
-        ApplicationUser applicationUser = new ApplicationUser();
-        BeanUtils.copyProperties(applicationUserDto, applicationUser);
-        applicationUser.setPassword(passwordEncoder.encode(applicationUser.getPassword()));
-        applicationUser.setUuid(UUID.randomUUID().toString());
+    public Optional<ApplicationUser> findUserByUuid(String uuid) {
+        return applicationUserRepository.findByUuid(uuid);
+    }
+
+    public ApplicationUser saveApplicationUser(ApplicationUserCreationDto userCreationDto) {
+        isUsernameAvailable(userCreationDto.getUsername());
+        isEmailAvailable(userCreationDto.getEmail());
+        isPasswordValid(userCreationDto.getPassword());
+        ApplicationUser applicationUser = ApplicationUser.builder()
+                .username(userCreationDto.getUsername())
+                .password(passwordEncoder.encode(userCreationDto.getPassword()))
+                .email(userCreationDto.getEmail())
+                .build();
         return applicationUserRepository.save(applicationUser);
     }
 
+    public ApplicationUser saveApplicationUser(ApplicationUser user) {
+        return applicationUserRepository.save(user);
+    }
+
     public Optional<ApplicationUser> verifyUser(String username, String password) {
-        Optional<ApplicationUser> userFromRepository = applicationUserRepository.findByUsername(username);
-        Optional<ApplicationUser> user = userFromRepository.filter((u) -> passwordEncoder.matches(password, u.getPassword()));
-        user.ifPresent((u) -> {
-            u.setUuid(UUID.randomUUID().toString());
-            updateUUID(u);
-        });
-        return user;
+        return applicationUserRepository.findByUsername(username)
+                .filter(applicationUser -> passwordEncoder.matches(password, applicationUser.getPassword()));
     }
 
-    private void updateUUID(ApplicationUser user) {
-        applicationUserRepository.updateUuidByUsername(user.getUuid(), user.getUsername());
+    private void isUsernameAvailable(String username) {
+        if (applicationUserRepository.existsByUsername(username)) {
+            throw new UsernameNotAvailableException("Username '" + username + "' is taken");
+        }
     }
 
-    public void deleteUUID(String UUID) {
-        applicationUserRepository.updateUuidByUuid(UUID, null);
+    private void isEmailAvailable(String email) {
+        if (applicationUserRepository.existsByEmail(email)) {
+            throw new EmailNotAvailableException("Email '" + email + "' is taken");
+        }
     }
 
-    public boolean isUuidExist(String uuid) {
-        return applicationUserRepository.existsByUuid(uuid);
+    private static void isPasswordValid(String password) {
+        if (password.length() < MIN_PASSWORD_LENGTH) {
+            throw new PasswordNotValidException("Password must be at least 7 characters");
+        }
     }
 
 }
