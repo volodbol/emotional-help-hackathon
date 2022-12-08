@@ -37,7 +37,7 @@ public class Answer {
     @Column(name = "mark")
     private Integer mark;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private AnswerGroup answerGroup;
 
     @ManyToOne
