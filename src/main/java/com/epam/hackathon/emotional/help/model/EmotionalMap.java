@@ -6,14 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -24,6 +20,8 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @ToString
+@EntityListeners(AuditingEntityListener.class)
+
 public class EmotionalMap {
 
     @Id
@@ -48,6 +46,9 @@ public class EmotionalMap {
 
     private Integer fearValue;
 
+    @Column(name = "create_date")
+    private LocalDateTime createDate;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,4 +64,8 @@ public class EmotionalMap {
         return Objects.hash(id, angryValue, joyValue, surpriseValue, sadnessValue, happyValue, fearValue);
     }
 
+    @PrePersist
+    public void onPrePersist() {
+        setCreateDate(LocalDateTime.now());
+    }
 }
