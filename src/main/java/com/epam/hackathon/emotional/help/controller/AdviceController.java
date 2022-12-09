@@ -1,7 +1,6 @@
 package com.epam.hackathon.emotional.help.controller;
 
 import com.epam.hackathon.emotional.help.dto.AdviceDto;
-import com.epam.hackathon.emotional.help.model.Advice;
 import com.epam.hackathon.emotional.help.service.AdviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
