@@ -18,6 +18,10 @@ public class EmotionalMapService {
 
     private final ApplicationUserService applicationUserService;
 
+    public EmotionalMap saveEmotionalMap(EmotionalMap emotionalMap) {
+        return emotionalMapRepository.save(emotionalMap);
+    }
+
     public EmotionalMap saveEmotionalMap(AnswersDto answersDto, String userId) {
         EmotionalMap emotionalMap = computeEmotionalMap(answersDto);
         try {

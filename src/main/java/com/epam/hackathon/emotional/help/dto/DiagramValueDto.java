@@ -13,6 +13,6 @@ public class DiagramValueDto {
 
     private String name;
 
-    private Integer value;
+    private Double value;
 
 }
