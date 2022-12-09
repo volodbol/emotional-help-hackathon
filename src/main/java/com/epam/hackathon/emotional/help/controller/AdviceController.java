@@ -1,5 +1,6 @@
 package com.epam.hackathon.emotional.help.controller;
 
+import com.epam.hackathon.emotional.help.dto.AdviceDto;
 import com.epam.hackathon.emotional.help.model.Advice;
 import com.epam.hackathon.emotional.help.service.AdviceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class AdviceController {
     private AdviceService adviceService;
 
     @GetMapping("/{feeling}")
-    public Advice getByFeeling(@PathVariable String feeling) {
+    public AdviceDto getByFeeling(@PathVariable String feeling) {
         return adviceService.getByFeeling(feeling);
     }
 }
