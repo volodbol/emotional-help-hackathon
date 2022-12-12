@@ -1,6 +1,7 @@
 package com.epam.hackathon.emotional.help.mapper;
 
 import com.epam.hackathon.emotional.help.dto.DiagramValueDto;
+import com.epam.hackathon.emotional.help.dto.EmotionalMapDto;
 import com.epam.hackathon.emotional.help.model.EmotionalMap;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +16,7 @@ public class EmotionalMapMapper {
 
     private static final int PERCENT_VALUE_SCALE = 2;
 
-    public List<DiagramValueDto> toDiagramValueDtos(EmotionalMap emotionalMap) {
+    public EmotionalMapDto toEmotionalMapDto(EmotionalMap emotionalMap) {
         List<DiagramValueDto> diagramValueDtos = List.of(
                 new DiagramValueDto("Fear", emotionalMap.getFearValue().doubleValue()),
                 new DiagramValueDto("Angry", emotionalMap.getAngryValue().doubleValue()),
@@ -27,7 +28,10 @@ public class EmotionalMapMapper {
         BigDecimal oneValuePercent = getOneValuePercent(diagramValueDtos);
         diagramValueDtos.forEach(diagramValue ->
                 diagramValue.setValue(convertToPercent(diagramValue.getValue(), oneValuePercent)));
-        return diagramValueDtos;
+        return EmotionalMapDto.builder()
+                .diagramValues(diagramValueDtos)
+                .createDate(emotionalMap.getCreateDate())
+                .build();
     }
 
     private static BigDecimal getOneValuePercent(List<DiagramValueDto> diagramValueDtos) {

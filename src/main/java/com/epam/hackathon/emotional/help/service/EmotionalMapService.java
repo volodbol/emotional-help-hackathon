@@ -8,6 +8,7 @@ import com.epam.hackathon.emotional.help.repository.EmotionalMapRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -42,6 +43,7 @@ public class EmotionalMapService {
         computedEmotionalMap.setId(emotionalMap.getId());
         computedEmotionalMap.setApplicationUser(emotionalMap.getApplicationUser());
         computedEmotionalMap.setAnonymousUUID(emotionalMap.getAnonymousUUID());
+        computedEmotionalMap.setCreateDate(LocalDateTime.now());
         return emotionalMapRepository.save(computedEmotionalMap);
     }
 
